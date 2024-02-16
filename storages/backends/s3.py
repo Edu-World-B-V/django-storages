@@ -667,6 +667,7 @@ class S3Storage(CompressStorageMixin, BaseStorage):
         url = self.bucket.meta.client.generate_presigned_url(
             "get_object", Params=params, ExpiresIn=expire, HttpMethod=http_method
         )
+        url = url.replace("ams3.digitaloceanspaces.com", "ams3.cdn.digitaloceanspaces.com")
         if self.querystring_auth:
             return url
         return self._strip_signing_parameters(url)
